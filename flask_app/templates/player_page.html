@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>football is cool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container container-md">
+        <h1>{{player.name}}</h1>
+        <h2>Position : {{player.position}}</h2>
+        <h2>Current Team: {{player.indiv_games[0].team.name}} </h2>
+        <h3>Height: {{bonus_data['height']}}</h3>
+        <h3>Weight: {{bonus_data['weight']}}</h3>
+        <a href ='/'>Home</a>
+        <a href='/players'>Players</a>
+        <h2>Games</h2>
+        
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>Opponent</th>
+                    <th>{{player.name}}'s Team Score</th>
+                    <th>Oponent score</th>
+                    <th>Date</th>
+                    <th>Game Performance</th>
+                    <th>Game Page</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for indiv_game in player.indiv_games %}
+                <tr>
+                    {% if indiv_game.team.name == indiv_game.game.home_team.name %}
+                    <td>{{indiv_game.game.visitor_team.name}}</td>
+                    <td>{{indiv_game.game.home_score}}</td>
+                    <td>{{indiv_game.game.visitor_score}}</td>
+                    {% else %}
+                    <td>@{{indiv_game.game.home_team.name}}</td>
+                    <td>{{indiv_game.game.visitor_score}}</td>
+                    <td>{{indiv_game.game.home_score}}</td>
+                    {% endif %}
+
+                    <td>{{indiv_game.game.date}}</td>
+                    <td> <a href = '/indiv_game/{{indiv_game.id}}'>Individual Performance</a></td>
+                    <td><a href="/games/{{indiv_game.game.id}}">Game Page</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

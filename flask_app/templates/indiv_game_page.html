@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>football is cool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container container-md">
+        <h1>{{player.name}}</h1>
+        <h2>Position : {{player.position}}</h2>
+        <h2>Team: {{indiv_game.team.name}} </h2>
+        <a href ='/'>Home</a>
+        <p>
+            <a href = '/players/{{player.id}}'>Back to Player</a>
+        </p>
+        <h2>Game Summary</h2>
+        {% if indiv_game.team.name == indiv_game.game.home_team.name %}
+        <h4>Home against {{indiv_game.game.visitor_team.name}}</h4>
+        <h4>Score: {{indiv_game.game.home_team.abrev}}: {{indiv_game.game.home_score}} {{indiv_game.game.visitor_team.abrev}}: {{indiv_game.game.visitor_score}}</h4>
+        
+        {% else %}
+        <h3>Away @ {{indiv_game.game.home_team.name}}</h3>
+        <h4>Score: {{indiv_game.game.visitor_team.abrev}}: {{indiv_game.game.visitor_score}} {{indiv_game.game.home_team.abrev}}: {{indiv_game.game.home_score}}</h4>
+        {% endif %}
+        <h4>Date: {{indiv_game.game.date}}</h4>
+        <h2>Player Performance</h2>
+        <div class='container'>
+            <ul class="list-group">
+
+                {% if player.position == 'QB' %}
+                
+                <!-- passing data -->
+                <ul>Pass Attemps: {{indiv_game.pass_att}}</ul>
+                <ul>Completions : {{indiv_game.pass_cmp}}</ul>
+                <ul>Passing Yards: {{indiv_game.pass_yards}}</ul>
+                <ul>Passing TDs: {{indiv_game.pass_tds}}</ul>
+                <ul>Longest Passing Play: {{indiv_game.pass_long}} yds</ul>
+                <ul>Interceptions: {{indiv_game.ints}}</ul>
+                <ul>Sacks: {{indiv_game.sacks}}</ul>
+                <ul>Sack Yards: {{indiv_game.sack_yards}}</ul>
+                <ul>Carries: {{indiv_game.rush_att}}</ul>
+                <ul>Rushing Yards: {{indiv_game.rush_yards}}</ul>
+                <ul>Rushing TDs: {{indiv_game.rush_tds}}</ul>
+                {% elif player.position =='RB' or player.position =='FB' %}
+                <!-- rushing data -->
+                <ul>Carries: {{indiv_game.rush_att}}</ul>
+                <ul>Rushing Yards: {{indiv_game.rush_yards}}</ul>
+                <ul>Rushing TDs: {{indiv_game.rush_tds}}</ul>
+                <ul>Longest Run: {{indiv_game.rush_long}} yds</ul>
+                {% elif player.position =='WR' or player.position =='TE' %}
+                <!-- recieving data -->
+                <ul>Targets: {{indiv_game.targets}}</ul>
+                <ul>Receptions: {{indiv_game.receptions}}</ul>
+                <ul>Receiving Yards: {{indiv_game.rec_yards}}</ul>
+                <ul>Receiving TDs: {{indiv_game.rec_tds}}</ul>
+                <ul>Longest Reception: {{indiv_game.rec_long}} yds</ul>
+                {% endif %}
+                <ul>TDs: {{indiv_game.rec_tds + indiv_game.pass_tds + indiv_game.rush_tds}}</ul>
+                <ul>Total Yards: {{indiv_game.rec_yards + indiv_game.rush_yards + indiv_game.pass_yards}}</p>
+            </ul>
+        </div>
+            
+            
+            
+        </div>
+    </body>
+    </html>
